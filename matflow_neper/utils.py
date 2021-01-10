@@ -183,6 +183,7 @@ def tesr_to_volume_element(tesr_path, phase_labels, homog_label, orientations=No
         'orientations': {
             'type': 'euler',
             'euler_angles': euler_angles,
+            'unit_cell_alignment': {'y': 'b'},
         },
         'element_material_idx': elem_mat_idx,
         'grid_size': tesr_dat['general']['size'],

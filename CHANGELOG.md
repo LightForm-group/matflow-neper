@@ -1,5 +1,11 @@
 # Change Log
 
+## [0.1.2] - 2021.01.10
+
+### Changed
+
+- Add unit cell alignment to `orientations` dict item in `tesr_to_volume_element` function.
+
 ## [0.1.1] - 2020.12.07
 
 ### Fixed

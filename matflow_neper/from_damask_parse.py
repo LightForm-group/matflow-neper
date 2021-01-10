@@ -6,11 +6,11 @@ import numpy as np
 
 
 def euler2quat(euler_angles):
-    """Conver Bunge-convention Eueler angles to unit quaternions.
+    """Convert Bunge-convention Euler angles to unit quaternions.
 
     Parameters
     ----------
-    euler_angles : ndarry of shape (N, 3) of float
+    euler_angles : ndarray of shape (N, 3) of float
         Array of N row three-vectors of Euler angles, specified as proper Euler angles in
         the Bunge convention (rotations are about Z, new X, new new Z).
 
@@ -85,6 +85,8 @@ def validate_orientations(orientations):
                 Array of R row three-vectors of Euler angles. Specify either `quaternions`
                 or `euler_angles`. Specified as proper Euler angles in the Bunge
                 convention (rotations are about Z, new-X, new-new-Z).
+            unit_cell_alignment : dict
+                Alignment of the unit cell.
 
     Returns
     -------
@@ -105,6 +107,12 @@ def validate_orientations(orientations):
     ori_type = orientations.get('type')
     eulers = orientations.get('euler_angles')
     quats = orientations.get('quaternions')
+    alignment = orientations.get('unit_cell_alignment')
+
+    if not alignment:
+        msg = (f'Alignment of the unit cell must be specified as a dict '
+               f'`unit_cell_alignment`.')
+        raise ValueError(msg)
 
     if ori_type not in ['euler', 'quat']:
         msg = f'Specify orientation `type` as either "euler" or "quat".'
@@ -144,6 +152,7 @@ def validate_orientations(orientations):
     orientations_valid = {
         'type': 'quat',
         'quaternions': quaternions,
+        'unit_cell_alignment': alignment,
     }
 
     return orientations_valid
@@ -236,6 +245,8 @@ def validate_volume_element(volume_element, phases=None, homog_schemes=None):
                     quaternions : ndarray of shape (R, 4) of float, optional
                         Array of R row four-vectors of unit quanternions. Specify either
                         `quaternions` or `euler_angles`.
+                    unit_cell_alignment : dict
+                        Alignment of the unit cell.
 
     """
 
